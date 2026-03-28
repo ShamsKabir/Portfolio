@@ -1,0 +1,461 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+/* CSS Reset and Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Merriweather", serif;
+  background: #0a192f;
+  color: white;
+  line-height: 1.6;
+  min-height: 100vh;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+/* Terminal */
+#terminal {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only.focus:not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Custom Cursor */
+#cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: difference;
+  z-index: 9999;
+  background: white;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  opacity: 0;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    transform 0.1s ease-out,
+    opacity 0.3s ease;
+}
+
+#cursor.visible {
+  opacity: 1;
+}
+
+#cursor.hover {
+  width: 40px;
+  height: 40px;
+}
+
+/* Disable custom cursor on touch devices */
+@media (pointer: coarse) {
+  body {
+    cursor: default;
+  }
+
+  #cursor {
+    display: none;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+  }
+}
+
+/* Disable custom cursor on prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #cursor {
+    display: none;
+  }
+
+  body {
+    cursor: default;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+  }
+}
+
+/* Bento Card Animations */
+.bento-card {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bento-card:hover {
+  transform: scale(1.01);
+}
+
+/* Breathing Animation */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.breath:hover {
+  animation: breathe 1s ease-in-out infinite;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Blink Animation */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+.clock-colon {
+  animation: blink 1s step-end infinite;
+}
+
+/* Timeline Animations */
+@keyframes grow {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.timeline-line {
+  animation: grow 1s ease-out forwards;
+}
+
+.education-entry {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.education-icon {
+  opacity: 0;
+  animation: popIn 0.3s ease-out forwards;
+}
+
+.education-entry:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.education-entry:nth-child(1) .education-icon {
+  animation-delay: 0.3s;
+}
+
+.education-entry:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+.education-entry:nth-child(2) .education-icon {
+  animation-delay: 0.5s;
+}
+
+.education-entry:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.education-entry:nth-child(3) .education-icon {
+  animation-delay: 0.7s;
+}
+
+.education-entry:nth-child(4) {
+  animation-delay: 1.1s;
+}
+
+.education-entry:nth-child(4) .education-icon {
+  animation-delay: 0.9s;
+}
+
+.education-entry:nth-child(5) {
+  animation-delay: 1.3s;
+}
+
+.education-entry:nth-child(5) .education-icon {
+  animation-delay: 1.1s;
+}
+
+/* Background Canvas */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease-out,
+    opacity 0.3s ease-out;
+  opacity: 0;
+}
+
+.mobile-menu.open {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Navigation Drop-down Animation */
+@keyframes navDropDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-20%);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.nav-drop-animation {
+  animation: navDropDown 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+}
+
+/* Reduce animations on prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .bento-card {
+    transition: none;
+  }
+
+  .float {
+    animation: none;
+  }
+
+  .blink {
+    animation: none;
+    opacity: 1;
+  }
+
+  .timeline-line,
+  .education-entry,
+  .education-icon {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav-drop-animation {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .breath:hover {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+a:focus,
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Contact Form Enhancements */
+.group {
+  position: relative;
+}
+
+.group label {
+  transition: color 0.3s ease;
+}
+
+.group:focus-within label {
+  color: #94a3b8;
+}
+
+.group svg {
+  transition: transform 0.3s ease;
+}
+
+.group:focus-within svg {
+  transform: scale(1.1);
+}
+
+/* Form input animations */
+input,
+textarea {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:hover,
+textarea:hover {
+  border-color: rgba(100, 255, 218, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.08);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Print styles */
+@media print {
+  #bg-canvas,
+  #cursor,
+  .mobile-menu {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .bento-card {
+    border: 1px solid #ccc !important;
+    background: white !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bento-card {
+    border: 2px solid white;
+  }
+
+  input,
+  textarea {
+    border: 2px solid white;
+  }
+}
